@@ -47,7 +47,7 @@ if st.button("Generate Name"):
         st.error("Failed to generate a name.")
 
 # Display list of names with upvote/downvote buttons and vote counts
-st.header("Names List")
+st.header("Generated names Leaderboard")
 names = get_names()
 for name in names:
     col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
