@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Flask app URL (adjust if running on a different host or port)
-FLASK_APP_URL = "http://127.0.0.1:5000"
+FLASK_APP_URL = "https://us-central1-aiprimer.cloudfunctions.net/namesformer_app"
 
 def generate_name(start_str):
     """Call the Flask app to generate a name based on the starting letter."""
@@ -32,7 +32,7 @@ def get_names():
         return []
 
 # UI for name generation
-start_letter = st.text_input("Enter a starting letter:", max_chars=1)
+start_letter = st.text_input("Enter a starting letter:", max_chars=5)
 new_name = ""
 if st.button("Generate Name"):
     result = generate_name(start_letter)
@@ -42,24 +42,24 @@ if st.button("Generate Name"):
     else:
         st.error("Failed to generate a name.")
 
-# Display list of names with upvote/downvote buttons and vote counts
-st.header("Names List")
-names = get_names()
-for name in names:
-    col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
-    with col1:
-        if name["name"] == new_name:
-            # Highlight the newly added name
-            st.markdown(f"**{name['name']} (New!)**")
-        else:
-            st.write(name["name"])
-    with col2:
-        st.write(f"Votes: {name['votes']}")
-    with col3:
-        if st.button("👍", key=f"up_{name['id']}"):
-            vote(name["id"], "upvote")
-            st.experimental_rerun()
-    with col4:
-        if st.button("👎", key=f"down_{name['id']}"):
-            vote(name["id"], "downvote")
-            st.experimental_rerun()
+# # Display list of names with upvote/downvote buttons and vote counts
+# st.header("Names List")
+# names = get_names()
+# for name in names:
+#     col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
+#     with col1:
+#         if name["name"] == new_name:
+#             # Highlight the newly added name
+#             st.markdown(f"**{name['name']} (New!)**")
+#         else:
+#             st.write(name["name"])
+#     with col2:
+#         st.write(f"Votes: {name['votes']}")
+#     with col3:
+#         if st.button("👍", key=f"up_{name['id']}"):
+#             vote(name["id"], "upvote")
+#             st.experimental_rerun()
+#     with col4:
+#         if st.button("👎", key=f"down_{name['id']}"):
+#             vote(name["id"], "downvote")
+#             st.experimental_rerun()
