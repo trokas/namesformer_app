@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import random
+import string
 
 # Flask app URL (adjust if running on a different host or port)
 FLASK_APP_URL = "https://us-central1-aiprimer.cloudfunctions.net/namesformer_app"
@@ -32,9 +34,11 @@ def get_names():
         return []
 
 # UI for name generation
-start_letter = st.text_input("Enter a starting letter:", max_chars=5)
+start_letter = st.text_input("Enter a starting letters:", max_chars=5)
 new_name = ""
 if st.button("Generate Name"):
+    if not start_letter:
+        start_letter = random.choice('ABCDEFGHIJKLMNOPRSTUVZ')
     result = generate_name(start_letter)
     if result and result.get("success"):
         new_name = result.get('name')  # Store the new name
